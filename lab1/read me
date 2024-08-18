@@ -1,0 +1,16 @@
+// FILE *fp;
+
+// // fp = fopen("file_path","r");
+// fp = fopen('q3.txt',"r");
+
+// if(Fp == NULL){ /*checking if file is not in the specified path, if null that file not found*/
+//     printf("");
+//     exit(0);
+// }
+//     int arr[n]; /*declaring array or a variable to store data from q3.txt;*/
+
+//     fscanf(file_name,'%d',&arr[i]);
+
+// for writing in a disc file:
+// fopen("q3.txt",'w');/*w - write*/
+ 

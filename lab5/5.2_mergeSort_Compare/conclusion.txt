@@ -1,0 +1,3 @@
+1. The actual number of comparisons in both average and best cases closely follows the theoretical n log2(n) - n + 1 curve.
+2. The best case performs slightly better than the average case, but both follow a similar growth pattern.
+3. The algorithm's performance aligns well with its theoretical time complexity, demonstrating that merge sort maintains its efficiency across different input sizes and scenarios.
