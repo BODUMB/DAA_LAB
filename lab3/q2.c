@@ -20,5 +20,6 @@ clock_t end = clock();
 end = clock()-start;
 double time_taken = ((double)end)/CLOCKS_PER_SEC;
 printf("result:%.20f\n",time_taken);
+
 return 0;
 }
