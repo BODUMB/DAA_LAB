@@ -73,7 +73,7 @@ void write_to_csv(int steps[], double avg_cmp[], double worst_cmp[], int size)
     fclose(file);
 }
 
-int main()
+void load_unsorted_data(int inputs[], int *n)
 {
     FILE *fptr1 = fopen("unsorted.txt", "r");
     if (!fptr1)
@@ -81,21 +81,16 @@ int main()
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
-    int inputs[MAX];
-    int n = 0;
-    while (fscanf(fptr1, "%d", &inputs[n]) == 1 && n < MAX)
-        n++;
+
+    *n = 0;
+    while (fscanf(fptr1, "%d", &inputs[*n]) == 1 && *n < MAX)
+        (*n)++;
 
     fclose(fptr1);
+}
 
-    int step_size;
-    printf("Enter number of steps: ");
-    scanf("%d", &step_size);
-    int steps[MAXSTEPS];
-    printf("Enter inputs for each step: ");
-    for (int i = 0; i < step_size && i < MAXSTEPS; i++)
-        scanf("%d", &steps[i]);
-
+void perform_comparisons(int inputs[], int n, int steps[], int step_size)
+{
     printf("Comparisons to sort unsorted data (QuickSort)\n");
     double *avg_cmp = compare_inputs(inputs, steps, step_size);
 
@@ -109,6 +104,62 @@ int main()
 
     free(avg_cmp);
     free(worst_cmp);
+}
+
+int main()
+{
+    int inputs[MAX];
+    int n = 0;
+    int step_size;
+    int steps[MAXSTEPS];
+    int choice;
+
+    while (1)
+    {
+        // Display menu
+        printf("\nMenu:\n");
+        printf("1. Load unsorted data\n");
+        printf("2. Enter step sizes and perform comparisons\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            // Load unsorted data from file
+            load_unsorted_data(inputs, &n);
+            printf("Unsorted data loaded successfully.\n");
+            break;
+
+        case 2:
+            // Check if data is loaded
+            if (n == 0)
+            {
+                printf("No data loaded. Please load unsorted data first.\n");
+                break;
+            }
+
+            // Enter number of steps and input sizes for testing
+            printf("Enter number of steps: ");
+            scanf("%d", &step_size);
+            printf("Enter inputs for each step: ");
+            for (int i = 0; i < step_size && i < MAXSTEPS; i++)
+                scanf("%d", &steps[i]);
+
+            // Perform comparisons and write results to CSV
+            perform_comparisons(inputs, n, steps, step_size);
+            break;
+
+        case 3:
+            // Exit the program
+            printf("Exiting the program.\n");
+            exit(0);
+
+        default:
+            printf("Invalid choice! Please try again.\n");
+        }
+    }
 
     return 0;
 }
